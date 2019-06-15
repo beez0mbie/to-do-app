@@ -8,6 +8,21 @@ class App extends React.Component {
     this.state = {
       todoState: todosData
     }
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(id){
+    this.setState( prevState => {
+        const updatedTodos = prevState.todoState.map(todo => {
+            if (todo.id === id) {
+              todo.completed = !todo.completed
+            }
+            return todo;
+        })
+        return {
+          todoState: updatedTodos
+        }
+    })
   }
 
   render(){
@@ -15,6 +30,7 @@ class App extends React.Component {
       item => <TodoItem 
       key = {item.id}
       item = {item}
+      handleClick = {this.handleClick}
       />
     )
 
